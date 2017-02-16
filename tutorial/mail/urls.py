@@ -6,5 +6,6 @@ app_name='mail'
 urlpatterns=[
 	url(r'^$',views.index,name='index'),
 	url(r'^store/', views.store,name='store'),
-	#url(r'^/results/$',views.results,name='results'),
+	url(r'^signup/',views.w_signup,name='w_signup'),
+	url(r'^signup$',views.signup,name='signup'),
 ]

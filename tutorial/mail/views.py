@@ -5,6 +5,7 @@ from django.template import loader
 import random
 from cryptography.fernet import Fernet
 from django.core.mail import send_mail
+from .models import Detail
 # Create your views here.
 
 def index(request):
@@ -30,13 +31,25 @@ def store(request):
 
 	#body=password+"\n"+request.POST.get('email')
 
-	link="http://www.IIITDMsdg.com/login?token=" + encoded_pass
+	link="http://localhost:8000/signup?token=" + encoded_pass
 	send_mail(
 		'details for login',
 		link,
 		'parasagarwal@iiitdmj.ac.in',
 		[request.POST.get('email')]
 	)
-	print request
-	list=[link]
+	
+	d=Detail(email=request.POST.get('email'),token=encoded_pass,session=0)
+	d.save()
+
 	return render(request,'mail/index.html')
+
+
+def w_signup(request):
+	return HttpResponse("Required the AUTHENTICATION LINK for SignUp")
+
+
+def signup(request):
+	d=Detail.objects.get(token=request.GET.get('token'))
+	list=[d.email," ",d.session]
+	return HttpResponse(list)
