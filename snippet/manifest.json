@@ -1,0 +1,27 @@
+{
+	"name": "snippet",
+	"version": "0.1.0",
+	"description": "Generates a preview when you hover over a link and also copies a large block of code/text which was earliear done by drag and selecting, now we can do this just by double clicking",
+	"author": "PseudoCode",
+	"manifest_version": 2,
+	"permissions": [
+		"clipboardWrite",
+		"contextMenus",
+		"*://*/*"
+	],
+	"browser_action": {
+		 "default_icon": "icon.png",
+		 "default_popup": "popup.html"
+	},
+	"background": { "page": "background.html" },
+
+	"content_scripts": [{
+		"matches": ["*://*/*"],
+		"js": [
+			"scripts/js/support/jquery.js",
+        	"scripts/preview.js",
+        	"scripts/inject.js"],
+		"run_at": "document_end"
+	}],
+	"offline_enabled": true
+}
